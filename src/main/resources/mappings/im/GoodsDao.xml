@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qing.jeesite.modules.im.dao.GoodsDao">
+
+	<sql id="goodsColumns">
+       t.id,
+       t.goods_name as goodsName,
+       t.goods_code as goodsCode,
+       t.classify,
+       t.model,
+       t.brand,
+       t.address,
+       t.brief,
+       t.shelves,
+       t.create_date as createDate,
+	   t.del_flag as delFlag
+	</sql>
+
+	<select id="get" resultType="com.qing.jeesite.modules.im.entity.Goods">
+		SELECT
+		<include refid="goodsColumns"/>
+		FROM t_goods t
+		WHERE t.id = #{id}
+	</select>
+
+	<!-- 分页查询用户信息 -->
+	<select id="findList" resultType="com.qing.jeesite.modules.im.entity.Goods">
+		SELECT
+		<include refid="goodsColumns"/>
+		FROM t_goods t
+		WHERE t.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="goodsName != null and goodsName != ''">
+			AND t.goods_name like concat(concat('%',#{goodsName}),'%')
+		</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY t.create_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO t_goods(
+		id,
+       goods_name,
+       goods_code,
+       classify,
+       model,
+       brand,
+       address,
+       brief,
+       shelves,
+	   del_flag
+		) VALUES (
+		#{id},
+		#{goodsName},
+		#{goodsCode},
+		#{classify},
+		#{model},
+		#{brand},
+		#{address},
+		#{brief},
+		#{shelves},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE t_goods SET
+		goods_name = #{goodsName},
+		goods_code = #{goodsCode},
+		classify = #{classify},
+		model = #{model},
+		brand = #{brand},
+		address = #{address},
+		<if test="shelves != null and shelves != ''">
+			shelves = #{shelves},
+		</if>
+		<if test="delFlag != null and delFlag != ''">
+			del_flag = #{delFlag},
+		</if>
+		brief = #{brief}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE t_goods SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
