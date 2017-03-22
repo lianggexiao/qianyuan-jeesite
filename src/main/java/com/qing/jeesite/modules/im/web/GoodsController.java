@@ -4,6 +4,7 @@
 package com.qing.jeesite.modules.im.web;
 
 import com.qing.jeesite.common.persistence.Page;
+import com.qing.jeesite.common.utils.StringUtils;
 import com.qing.jeesite.common.web.BaseController;
 import com.qing.jeesite.modules.im.entity.Goods;
 import com.qing.jeesite.modules.im.service.GoodsService;
@@ -30,7 +31,12 @@ public class GoodsController extends BaseController {
 	
 	@ModelAttribute
 	public Goods get(@RequestParam(required=false) String id) {
-		return goodsService.getGoods(id);
+		if (StringUtils.isNotBlank(id)){
+			return goodsService.getGoods(id);
+		}else{
+			return new Goods();
+		}
+
 	}
 
 	@RequestMapping(value = {"list", ""})
@@ -68,7 +74,7 @@ public class GoodsController extends BaseController {
 	public String delete(Goods goods, RedirectAttributes redirectAttributes) {
 		goodsService.deleteGoods(goods);
 		addMessage(redirectAttributes, "删除成功");
-		return "redirect:" + adminPath + "/sys/user/list?repage";
+		return "redirect:" + adminPath + "/im/goods/list?repage";
 	}
 
 

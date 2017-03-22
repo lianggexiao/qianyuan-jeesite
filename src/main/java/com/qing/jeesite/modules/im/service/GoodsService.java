@@ -1,6 +1,7 @@
 package com.qing.jeesite.modules.im.service;
 
 import com.qing.jeesite.common.persistence.Page;
+import com.qing.jeesite.common.utils.IdGen;
 import com.qing.jeesite.common.utils.StringUtils;
 import com.qing.jeesite.modules.im.dao.GoodsDao;
 import com.qing.jeesite.modules.im.entity.Goods;
@@ -37,6 +38,8 @@ public class GoodsService {
     @Transactional(readOnly = false)
     public void saveGoods(Goods goods) {
         if (StringUtils.isBlank(goods.getId())) {
+            goods.setShelves("0");
+            goods.setId(IdGen.uuid());
             goodsDao.insert(goods);
         }else {
             goodsDao.update(goods);
