@@ -5,7 +5,7 @@ import com.qing.jeesite.common.persistence.DataEntity;
 /**
  * File name and path : com.qing.jeesite.modules.im.entity.Goods
  * Author : 柳青 , Version : 1.0, First complete date : 2017/3/19 18:20
- * Description :
+ * Description : 产品
  * Others :
  */
 public class Goods extends DataEntity<Goods> {

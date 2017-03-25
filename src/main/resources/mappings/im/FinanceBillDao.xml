@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qing.jeesite.modules.im.dao.FinanceBillDao">
+
+	<sql id="financeBillColumns">
+       t.id,
+       t.bill_time as billTime,
+       t.matter,
+       t.amount_capital as amountCapital,
+       t.amount,
+       t.bill_user as billUser,
+       t.payment,
+       t.operator,
+       t.finance_status as financeStatus,
+       t.opinion,
+       t.title,
+       t.remarks,
+       t.del_flag as delFlag,
+       t.create_date as createDate
+	</sql>
+
+	<select id="get" resultType="com.qing.jeesite.modules.im.entity.FinanceBill">
+		SELECT
+		<include refid="financeBillColumns"/>
+		FROM t_finance_bill t
+		WHERE t.id = #{id}
+	</select>
+
+	<!-- 分页查询用户信息 -->
+	<select id="findList" resultType="com.qing.jeesite.modules.im.entity.FinanceBill">
+		SELECT
+		<include refid="financeBillColumns"/>
+		FROM t_finance_bill t
+		WHERE t.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="title != null and title != ''">
+			AND t.title like concat(concat('%',#{title}),'%')
+		</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY t.create_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO t_finance_bill(
+		id,
+       bill_time,
+       matter,
+       amount_capital,
+       amount,
+       bill_user,
+       payment,
+       operator,
+       finance_status,
+       opinion,
+       title,
+       remarks,
+	   del_flag
+		) VALUES (
+		#{id},
+		#{billTime},
+		#{matter},
+		#{amountCapital},
+		#{amount},
+		#{billUser},
+		#{payment},
+		#{operator},
+		#{financeStatus},
+		#{opinion},
+		#{title},
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE t_finance_bill SET
+		bill_time = #{billTime},
+		amount_capital = #{amountCapital},
+		matter = #{matter},
+		amount = #{amount},
+		bill_user = #{billUser},
+		payment = #{payment},
+		operator = #{operator},
+		title = #{title},
+		<if test="delFlag != null and delFlag != ''">
+			del_flag = #{delFlag},
+		</if>
+		remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE t_finance_bill SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qing.jeesite.modules.im.dao.FinanceDetailBillDao">
+
+	<sql id="financeDetailBillColumns">
+       t.id,
+       t.bill_id as billId,
+       t.total_amount as totalAmount,
+       t.amount,
+       t.goods_name as goodsName,
+       t.remarks
+	</sql>
+
+	<!-- 查询 -->
+	<select id="findList" resultType="com.qing.jeesite.modules.im.entity.FinanceDetailBill">
+		SELECT
+		<include refid="financeDetailBillColumns"/>
+		FROM t_finance_detail_bill t
+		WHERE 1=1
+		<if test="billId != null and billId != ''">
+			AND t.bill_id = #{billId}
+		</if>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO t_finance_detail_bill(
+		    id,
+		    bill_id,
+		    total_amount,
+		    amount,
+		    goods_name,
+		    remarks
+		) VALUES (
+			#{id},
+			#{billId},
+			#{totalAmount},
+			#{amount},
+			#{goodsName},
+			#{remarks}
+		)
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM t_finance_detail_bill
+		WHERE id = #{id}
+	</delete>
+
+	<delete id="deleteByBillId">
+		DELETE FROM t_finance_detail_bill
+		WHERE bill_id = #{billId}
+	</delete>
+	
+</mapper>

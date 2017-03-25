@@ -77,5 +77,18 @@ public class GoodsController extends BaseController {
 		return "redirect:" + adminPath + "/im/goods/list?repage";
 	}
 
-
+	/**
+	 * 商品选择弹框
+	 * @param goods
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "toSelectGoods")
+	public String toSelectGoods(Goods goods, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<Goods> page = goodsService.findGoodsList(new Page<Goods>(request, response), goods);
+		model.addAttribute("page", page);
+		return "modules/im/goods/toSelectGoods";
+	}
 }
