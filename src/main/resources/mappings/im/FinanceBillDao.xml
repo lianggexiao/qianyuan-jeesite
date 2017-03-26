@@ -35,6 +35,21 @@
 		<if test="title != null and title != ''">
 			AND t.title like concat(concat('%',#{title}),'%')
 		</if>
+		<if test="billUser != null and billUser != ''">
+			AND t.bill_user = #{billUser}
+		</if>
+		<if test="matter != null and matter != ''">
+			AND t.matter = #{matter}
+		</if>
+		<if test="payment != null and payment != ''">
+			AND t.payment = #{payment}
+		</if>
+		<if test="startBillTime != null and startBillTime != ''">
+			AND date_format(t.bill_time,'%Y-%m-%d') >= #{startBillTime}
+		</if>
+		<if test="endBillTime != null and endBillTime != ''">
+			AND #{endBillTime} >= date_format(t.bill_time,'%Y-%m-%d')
+		</if>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
 				ORDER BY ${page.orderBy}
@@ -94,10 +109,17 @@
 		WHERE id = #{id}
 	</update>
 
-	<update id="delete">
+	<!--修改审核状态以及审核意见-->
+	<update id="updateFinanceBill">
 		UPDATE t_finance_bill SET
-			del_flag = #{DEL_FLAG_DELETE}
+		finance_status = #{financeStatus},
+		opinion = #{opinion}
 		WHERE id = #{id}
 	</update>
+
+	<delete id="delete">
+		DELETE FROM t_finance_bill
+		WHERE id = #{id}
+	</delete>
 	
 </mapper>

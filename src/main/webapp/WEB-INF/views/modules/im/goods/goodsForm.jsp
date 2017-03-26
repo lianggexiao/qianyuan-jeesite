@@ -72,7 +72,7 @@
         <label class="control-label">分类:</label>
         <div class="controls">
             <form:select path="classify" class="input-medium">
-                <form:options items="${fns:getDictList('sys_area_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+                <form:options items="${fns:getDictList('im_goods_classify')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
             </form:select>
         </div>
     </div>

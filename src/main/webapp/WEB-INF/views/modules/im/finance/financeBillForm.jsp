@@ -162,7 +162,7 @@
         <label class="control-label">报销事项:</label>
         <div class="controls">
             <form:select path="matter" class="input-medium">
-                <form:options items="${fns:getDictList('sys_area_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+                <form:options items="${fns:getDictList('im_matter')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
             </form:select>
         </div>
     </div>
@@ -177,14 +177,16 @@
         <label class="control-label">支付情况:</label>
         <div class="controls">
             <form:select path="payment" class="input-medium">
-                <form:options items="${fns:getDictList('sys_area_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+                <form:options items="${fns:getDictList('im_payment')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
             </form:select>
         </div>
     </div>
     <div class="control-group">
         <label class="control-label">报销人:</label>
         <div class="controls">
-            <form:input path="billUser" htmlEscape="false" maxlength="50"/>
+            <form:select path="billUser" class="input-medium">
+                <form:options items="${fns:getDictList('im_bill_user')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+            </form:select>
         </div>
     </div>
     <div class="control-group">

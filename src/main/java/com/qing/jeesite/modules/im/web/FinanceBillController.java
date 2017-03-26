@@ -93,5 +93,51 @@ public class FinanceBillController extends BaseController {
 		return "redirect:" + adminPath + "/im/finance/bill/list?repage";
 	}
 
+	/**
+	 * (运营)提交审核
+	 * @param financeBill
+	 * @param request
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value = "submitAudit")
+	public String submitAudit(FinanceBill financeBill, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
+		financeBill.setFinanceStatus("3");  //待审核
+		financeBillService.updateFinanceBill(financeBill);
+		addMessage(redirectAttributes, "已提交审核");
+		return "redirect:" + adminPath + "/im/finance/bill/list?repage";
+	}
 
+	/**
+	 * 审核弹框
+	 * @param financeBill
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "toAudit")
+	public String toSelectGoods(FinanceBill financeBill, Model model) {
+		return "modules/im/finance/toAudit";
+	}
+
+	/**
+	 * 财务审核
+	 * @param financeBill
+	 * @param request
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value = "financeAudit")
+	public String financeAudit(FinanceBill financeBill, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
+		financeBillService.updateFinanceBill(financeBill);
+		String financeStatus = financeBill.getFinanceStatus();
+		if("1".equals(financeStatus)){
+			addMessage(redirectAttributes, "审核通过");
+		}
+		if("2".equals(financeStatus)){
+			addMessage(redirectAttributes, "审核不通过");
+		}
+		return "redirect:" + adminPath + "/im/finance/bill/list?repage";
+	}
 }

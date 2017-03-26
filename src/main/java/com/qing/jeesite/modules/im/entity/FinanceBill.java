@@ -24,6 +24,9 @@ public class FinanceBill extends DataEntity<FinanceBill> {
     private String title;          //标题
 
     private String objStr;         //传参 参数
+    private String startBillTime;  //报销开始时间
+    private String endBillTime;    //报销结束时间
+
 
     public Date getBillTime() {
         return billTime;
@@ -111,5 +114,21 @@ public class FinanceBill extends DataEntity<FinanceBill> {
 
     public void setObjStr(String objStr) {
         this.objStr = objStr;
+    }
+
+    public String getStartBillTime() {
+        return startBillTime;
+    }
+
+    public void setStartBillTime(String startBillTime) {
+        this.startBillTime = startBillTime;
+    }
+
+    public String getEndBillTime() {
+        return endBillTime;
+    }
+
+    public void setEndBillTime(String endBillTime) {
+        this.endBillTime = endBillTime;
     }
 }

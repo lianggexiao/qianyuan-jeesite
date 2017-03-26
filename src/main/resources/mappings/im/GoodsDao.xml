@@ -32,6 +32,9 @@
 		<if test="goodsName != null and goodsName != ''">
 			AND t.goods_name like concat(concat('%',#{goodsName}),'%')
 		</if>
+		<if test="classify != null and classify != ''">
+			AND t.classify like concat(concat('%',#{classify}),'%')
+		</if>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
 				ORDER BY ${page.orderBy}

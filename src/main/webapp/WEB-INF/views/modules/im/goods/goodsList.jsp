@@ -31,6 +31,10 @@
             <label>产品名称：</label>
             <form:input path="goodsName" htmlEscape="false" maxlength="50" class="input-medium"/>
         </li>
+        <li>
+            <label>产品分类：</label>
+            <form:input path="classify" htmlEscape="false" maxlength="50" class="input-medium"/>
+        </li>
         <li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询" onclick="return page();"/>
         <li class="clearfix"></li>
     </ul>

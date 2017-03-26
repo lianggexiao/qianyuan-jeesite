@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,5 +90,12 @@ public class FinanceBillService {
     @Transactional(readOnly = false)
     public void deleteFinanceBill(FinanceBill financeBill) {
         financeBillDao.delete(financeBill);
+        //删除详情
+        financeDetailBillDao.deleteByBillId(financeBill.getId());
+    }
+
+    //修改审核状态
+    public void updateFinanceBill(FinanceBill financeBill) {
+        financeBillDao.updateFinanceBill(financeBill);
     }
 }
