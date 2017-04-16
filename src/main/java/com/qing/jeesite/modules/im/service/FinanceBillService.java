@@ -98,4 +98,14 @@ public class FinanceBillService {
     public void updateFinanceBill(FinanceBill financeBill) {
         financeBillDao.updateFinanceBill(financeBill);
     }
+
+    //批量修改审核状态
+    public void updateFinanceBillBatch(FinanceBill financeBill) {
+        String objStr = financeBill.getObjStr();
+        if(StringUtils.isNotEmpty(objStr)){
+            String[] strs = objStr.split(",");
+            financeBill.setStrs(strs);
+            financeBillDao.updateFinanceBillBatch(financeBill);
+        }
+    }
 }

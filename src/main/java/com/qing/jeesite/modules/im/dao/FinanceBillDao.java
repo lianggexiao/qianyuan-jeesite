@@ -14,4 +14,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface FinanceBillDao extends CrudDao<FinanceBill> {
 
     void updateFinanceBill(FinanceBill financeBill);
+
+    void updateFinanceBillBatch(FinanceBill financeBill);
+
+
 }

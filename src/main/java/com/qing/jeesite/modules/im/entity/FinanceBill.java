@@ -19,7 +19,7 @@ public class FinanceBill extends DataEntity<FinanceBill> {
     private String billUser;       //报销人
     private String payment;        //支付情况 1=公司支付，2=个人支付
     private String operator;       //操作人
-    private String financeStatus;  //财务状态 0=未审核,1=审核通过，2=审核不通过
+    private String financeStatus;  //财务状态 0=未审核,1=审核通过，2=审核不通过，3=待审核
     private String opinion;        //审核意见
     private String title;          //标题
 
@@ -27,6 +27,15 @@ public class FinanceBill extends DataEntity<FinanceBill> {
     private String startBillTime;  //报销开始时间
     private String endBillTime;    //报销结束时间
 
+    private String[] strs;
+
+    public String[] getStrs() {
+        return strs;
+    }
+
+    public void setStrs(String[] strs) {
+        this.strs = strs;
+    }
 
     public Date getBillTime() {
         return billTime;

@@ -44,6 +44,9 @@
 		<if test="payment != null and payment != ''">
 			AND t.payment = #{payment}
 		</if>
+		<if test="financeStatus != null and financeStatus != ''">
+			AND t.finance_status = #{financeStatus}
+		</if>
 		<if test="startBillTime != null and startBillTime != ''">
 			AND date_format(t.bill_time,'%Y-%m-%d') >= #{startBillTime}
 		</if>
@@ -115,6 +118,17 @@
 		finance_status = #{financeStatus},
 		opinion = #{opinion}
 		WHERE id = #{id}
+	</update>
+
+	<!--批量修改审核状态以及审核意见-->
+	<update id="updateFinanceBillBatch">
+		UPDATE t_finance_bill SET
+		finance_status = #{financeStatus},
+		opinion = #{opinion}
+		WHERE id in
+		<foreach collection="strs" item="objStr" open="("  separator="," close=")">
+			#{objStr}
+		</foreach>
 	</update>
 
 	<delete id="delete">

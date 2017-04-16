@@ -110,13 +110,28 @@ public class FinanceBillController extends BaseController {
 	}
 
 	/**
+	 * (运营)批量提交审核
+	 * @param financeBill
+	 * @param request
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value = "submitAuditBatch")
+	public String submitAuditBatch(FinanceBill financeBill, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
+		financeBillService.updateFinanceBillBatch(financeBill);
+		addMessage(redirectAttributes, "已提交审核");
+		return "redirect:" + adminPath + "/im/finance/bill/list?repage";
+	}
+
+	/**
 	 * 审核弹框
 	 * @param financeBill
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "toAudit")
-	public String toSelectGoods(FinanceBill financeBill, Model model) {
+	public String toAudit(FinanceBill financeBill, Model model) {
 		return "modules/im/finance/toAudit";
 	}
 
@@ -139,5 +154,22 @@ public class FinanceBillController extends BaseController {
 			addMessage(redirectAttributes, "审核不通过");
 		}
 		return "redirect:" + adminPath + "/im/finance/bill/list?repage";
+	}
+
+	/**
+	 * 查看详情
+	 */
+	@RequestMapping(value = "toShow")
+	public String toShow(FinanceBill financeBill, Model model) {
+		FinanceDetailBill financeDetailBill = new FinanceDetailBill();
+		String billId = financeBill.getId();
+		if(StringUtils.isEmpty(billId)){
+			billId = "###"; //定义出这样就是为了不让查出数据
+		}
+		financeDetailBill.setBillId(billId);
+		List<FinanceDetailBill> financeDetailBillList = financeDetailBillService.findFinanceBillList(financeDetailBill);
+		model.addAttribute("financeBill", financeBill);
+		model.addAttribute("financeDetailBillList", financeDetailBillList);
+		return "modules/im/finance/show";
 	}
 }
