@@ -6,13 +6,27 @@
     <%@ include file="/WEB-INF/views/include/head.jsp" %>
     <title>区域管理</title>
     <meta name="decorator" content="default"/>
+    <script src="${ctxStatic}/ueditor/ueditor.config.js" charset="utf-8" type="text/javascript" ></script>
+    <script src="${ctxStatic}/ueditor/ueditor.all.min.js" charset="utf-8" type="text/javascript" ></script>
+    <script type="text/javascript" charset="utf-8" src="${ctxStatic}/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="${ctxStatic}/ueditor/jbase64.js" charset="utf-8" type="text/javascript" ></script>
     <script type="text/javascript">
+        var editor = null;
 
+        $(document).ready(function () {
+            var item = {
+                toolbars:[['FullScreen', 'Source', 'Undo', 'Redo','bold','test']],
+                wordCount:false,
+                elementPathEnabled:false
+            };
+            editor = UE.getEditor('editor', item);
+        });
     </script>
 </head>
 <body>
 <br>
 <form:form id="inputForm" modelAttribute="financeBill" action="${ctx}/im/finance/bill/save" method="post" class="form-horizontal">
+    <form:hidden path="remarks"/>
     <table>
         <tr>
             <td colspan="2">
@@ -84,46 +98,19 @@
                 <div class="control-group">
                     <label class="control-label">备注:</label>
                     <div class="controls">
-                        <form:textarea path="remarks" htmlEscape="false" rows="3" maxlength="200" class="input-xlarge"/>
+                        <script id="editor" type="text/plain" style="width:99%;height:200px;"></script>
                     </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="control-group">
-                    <label class="control-label">报销产品:</label>
-                    <table id="page-tbody" class="table table-striped table-bordered table-condensed">
-                        <c:if test="${financeDetailBillList.size() == 0}">
-                            &nbsp;空
-                        </c:if>
-                        <c:forEach items="${financeDetailBillList}" var="financeDetailBill">
-                            <tr class="odd gradeX" data-id="${financeDetailBill.id}"  data-prd-name="${financeDetailBill.goodsName}">
-                                <td style="width:24px">
-                                    <div class="checker"><span><input type="checkbox" class="checkboxes"></span></div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <p>产品名称：<span>${financeDetailBill.goodsName}</span></p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p>数量：<input type="text" class="prd-amount" style="width:100px;" value="${financeDetailBill.amount}">
-                                        &nbsp;&nbsp; 总金额：<input type="text" class="prd-totalAmount" style="width:100px;" value="${financeDetailBill.totalAmount}"></p>
-                                </td>
-                                <td>
-                                    <div>
-                                        备注：
-                                        <input type="text" class="prd-remarks" maxlength="12" value="${financeDetailBill.remarks}" style="width:100px;">
-                                    </div>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
                 </div>
             </td>
         </tr>
     </table>
 </form:form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        editor.ready(function() {
+            editor.setContent($('#remarks').val());  //赋值给UEditor
+        });
+    });
+</script>
 </body>
 </html>

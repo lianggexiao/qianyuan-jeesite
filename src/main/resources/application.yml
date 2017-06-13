@@ -69,7 +69,7 @@ spring:
 adminPath: /admin
 #分页配置
 page:
-  pageSize: 15
+  pageSize: 20
 #文件上传的路径
 userfiles:
   basedir: /data/jeesite/upload

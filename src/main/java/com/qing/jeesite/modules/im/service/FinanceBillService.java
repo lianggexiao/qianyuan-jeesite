@@ -9,12 +9,13 @@ import com.qing.jeesite.modules.im.dao.FinanceBillDao;
 import com.qing.jeesite.modules.im.dao.FinanceDetailBillDao;
 import com.qing.jeesite.modules.im.entity.FinanceBill;
 import com.qing.jeesite.modules.im.entity.FinanceDetailBill;
-import com.qing.jeesite.modules.sys.entity.User;
 import com.qing.jeesite.modules.sys.utils.UserUtils;
+import org.apache.shiro.codec.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,13 @@ public class FinanceBillService {
             String jsonListStr = objStr.replaceAll("&quot;", "\"");
             Gson gson = new Gson();
             list = gson.fromJson(jsonListStr, new TypeToken<List<FinanceDetailBill>>(){}.getType());
+        }
+
+        try {
+            String decodeContent =  new String(Base64.decode(financeBill.getRemarks()),"UTF-8");
+            financeBill.setRemarks(decodeContent);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
 
         if (StringUtils.isBlank(financeBill.getId())) {
