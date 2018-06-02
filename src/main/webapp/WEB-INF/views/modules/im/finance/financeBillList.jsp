@@ -172,7 +172,7 @@
         </li>
         <li>
             <label>报销事项：</label>
-            <form:select path="matter" class="input-medium">
+            <form:select path="matter" class="input-medium" cssStyle="width: 200px;">
                 <option selected value="">请选择</option>
                 <form:options items="${fns:getDictList('im_matter')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
             </form:select>

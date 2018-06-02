@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qing.jeesite.modules.im.dao.FinanceStatisDao">
+	<!-- 财务账单统计查询 -->
+	<select id="getStatisByTime" resultType="com.qing.jeesite.modules.im.entity.FinanceBill">
+		SELECT
+			t.matter as matter,
+			SUM(t.amount) as amount
+	    FROM t_finance_bill t
+		WHERE t.bill_time > #{startBillTime}
+		      and #{endBillTime} > t.bill_time
+		GROUP BY t.matter
+	</select>
+
+
+</mapper>

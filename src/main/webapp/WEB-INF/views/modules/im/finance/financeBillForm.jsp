@@ -93,7 +93,7 @@
     <div class="control-group">
         <label class="control-label">报销事项:</label>
         <div class="controls">
-            <form:select path="matter" class="input-medium">
+            <form:select path="matter" class="input-medium" cssStyle="width: 200px;">
                 <form:options items="${fns:getDictList('im_matter')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
             </form:select>
         </div>

@@ -4,6 +4,8 @@
 package com.qing.jeesite.common.utils;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -169,7 +171,39 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		long afterTime = after.getTime();
 		return (afterTime - beforeTime) / (1000 * 60 * 60 * 24);
 	}
-	
+
+	/**
+	 * 获取当月第一天
+	 * @return
+	 */
+	public static String getFirstDayMonth(){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String firstday, lastday;
+		Calendar cale = null;
+		// 获取前月的第一天
+		cale = Calendar.getInstance();
+		cale.add(Calendar.MONTH, 0);
+		cale.set(Calendar.DAY_OF_MONTH, 1);
+		firstday = format.format(cale.getTime());
+		return firstday + " 00:00:01";
+	}
+
+	/**
+	 * 获取当月最后天
+	 * @return
+	 */
+	public static String getEndDayMonth(){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String firstday, lastday;
+		Calendar cale = null;
+		// 获取前月的第一天
+		cale = Calendar.getInstance();
+		cale.add(Calendar.MONTH, 1);
+		cale.set(Calendar.DAY_OF_MONTH, 0);
+		lastday = format.format(cale.getTime());
+		return lastday + " 23:59:59";
+	}
+
 	/**
 	 * @param args
 	 * @throws ParseException
