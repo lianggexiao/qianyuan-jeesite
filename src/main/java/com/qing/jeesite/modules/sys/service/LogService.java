@@ -14,8 +14,6 @@ import com.qing.jeesite.modules.sys.entity.Log;
 
 /**
  * 日志Service
- * @author ThinkGem
- * @version 2014-05-16
  */
 @Service
 @Transactional(readOnly = true)

@@ -19,9 +19,6 @@ import com.google.common.collect.Maps;
 
 /**
  * Entity支持类
- *
- * @author ThinkGem
- * @version 2014-05-16
  */
 //@SupTreeList
 public abstract class BaseEntity<T> implements Serializable {

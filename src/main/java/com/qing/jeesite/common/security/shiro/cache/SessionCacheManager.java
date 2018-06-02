@@ -25,8 +25,6 @@ import com.qing.jeesite.common.web.Servlets;
 
 /**
  * 自定义授权缓存管理类
- * @author ThinkGem
- * @version 2014-7-21
  */
 public class SessionCacheManager implements CacheManager {
 

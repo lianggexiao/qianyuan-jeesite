@@ -10,8 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 角色DAO接口
  *
- * @author ThinkGem
- * @version 2013-12-05
  */
 @Mapper
 public interface RoleDao extends CrudDao<Role> {

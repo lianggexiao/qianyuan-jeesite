@@ -9,8 +9,6 @@ import org.apache.shiro.cache.CacheManager;
 /**
  * Cache工具类
  *
- * @author ThinkGem
- * @version 2013-5-29
  */
 public class CacheUtils {
 

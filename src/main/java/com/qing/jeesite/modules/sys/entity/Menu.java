@@ -15,8 +15,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 菜单Entity
- * @author ThinkGem
- * @version 2013-05-15
  */
 public class Menu extends DataEntity<Menu> {
 

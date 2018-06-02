@@ -9,8 +9,6 @@ import com.qing.jeesite.common.persistence.TreeEntity;
 
 /**
  * 区域Entity
- * @author ThinkGem
- * @version 2013-05-15
  */
 public class Area extends TreeEntity<Area> {
 

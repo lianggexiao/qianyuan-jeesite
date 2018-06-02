@@ -29,8 +29,6 @@ import com.google.common.collect.Maps;
 
 /**
  * 菜单Controller
- * @author ThinkGem
- * @version 2013-3-23
  */
 @Controller
 @RequestMapping(value = "${adminPath}/sys/menu")

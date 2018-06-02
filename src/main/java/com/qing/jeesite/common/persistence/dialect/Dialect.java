@@ -6,7 +6,6 @@ package com.qing.jeesite.common.persistence.dialect;
 /**
  * 类似hibernate的Dialect,但只精简出分页部分
  *
- * @author poplar.yfyang
  * @version 1.0 2011-11-18 下午12:31
  * @since JDK 1.5
  */

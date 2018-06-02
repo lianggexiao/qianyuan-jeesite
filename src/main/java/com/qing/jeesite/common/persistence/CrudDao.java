@@ -7,10 +7,6 @@ import java.util.List;
 
 /**
  * DAO支持类实现
- *
- * @param <T>
- * @author ThinkGem
- * @version 2014-05-16
  */
 public interface CrudDao<T> extends BaseDao {
 

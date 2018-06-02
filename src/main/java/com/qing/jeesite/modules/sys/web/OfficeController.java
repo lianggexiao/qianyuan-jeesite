@@ -31,8 +31,6 @@ import com.google.common.collect.Maps;
 
 /**
  * 机构Controller
- * @author ThinkGem
- * @version 2013-5-15
  */
 @Controller
 @RequestMapping(value = "${adminPath}/sys/office")

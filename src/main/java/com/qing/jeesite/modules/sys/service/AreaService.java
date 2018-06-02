@@ -15,8 +15,6 @@ import com.qing.jeesite.modules.sys.utils.UserUtils;
 
 /**
  * 区域Service
- * @author ThinkGem
- * @version 2014-05-16
  */
 @Service
 @Transactional(readOnly = true)

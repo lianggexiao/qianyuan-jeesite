@@ -12,8 +12,6 @@ import java.util.List;
 /**
  * 用户DAO接口
  *
- * @author ThinkGem
- * @version 2014-05-16
  */
 @Mapper
 public interface UserDao extends CrudDao<User> {

@@ -20,8 +20,6 @@ import com.qing.jeesite.modules.sys.utils.UserUtils;
 /**
  * CKFinderConnectorServlet
  *
- * @author ThinkGem
- * @version 2014-06-25
  */
 @WebServlet(urlPatterns = "/static/ckfinder/core/connector/java/connector.java", initParams = {
         @WebInitParam(name = "XMLConfig", value = "classpath:ckfinder.xml"),

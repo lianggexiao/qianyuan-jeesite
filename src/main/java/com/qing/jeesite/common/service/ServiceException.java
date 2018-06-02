@@ -5,7 +5,6 @@ package com.qing.jeesite.common.service;
 
 /**
  * Service层公用的Exception, 从由Spring管理事务的函数中抛出时会触发事务回滚.
- * @author ThinkGem
  */
 public class ServiceException extends RuntimeException {
 

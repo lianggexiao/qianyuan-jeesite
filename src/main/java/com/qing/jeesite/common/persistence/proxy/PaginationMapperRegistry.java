@@ -9,11 +9,6 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 
 /**
- * <p>
- * .
- * </p>
- *
- * @author poplar.yfyang
  * @version 1.0 2012-05-13 上午10:06
  * @since JDK 1.5
  */

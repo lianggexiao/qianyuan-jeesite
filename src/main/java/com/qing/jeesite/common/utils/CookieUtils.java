@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Cookie工具类
- * @author ThinkGem
- * @version 2013-01-15
  */
 public class CookieUtils {
 

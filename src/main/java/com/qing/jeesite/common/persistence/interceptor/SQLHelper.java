@@ -34,7 +34,6 @@ import com.qing.jeesite.common.utils.StringUtils;
 /**
  * SQL工具类
  *
- * @author poplar.yfyang / thinkgem
  * @version 2013-8-28
  */
 public class SQLHelper {

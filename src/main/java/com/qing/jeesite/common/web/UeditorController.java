@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/**
- * Created by ax on 2017-3-28.
- */
 @Controller
 @RequestMapping(value = "${adminPath}/common/ueditor")
 public class UeditorController extends BaseController {

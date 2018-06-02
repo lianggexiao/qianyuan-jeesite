@@ -18,8 +18,6 @@ import com.google.common.collect.Maps;
 
 /**
  * 字典工具类
- * @author ThinkGem
- * @version 2013-5-29
  */
 public class DictUtils {
 	

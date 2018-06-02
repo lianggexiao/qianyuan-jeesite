@@ -22,8 +22,6 @@ import com.google.common.collect.Lists;
 
 /**
  * 用户Entity
- * @author ThinkGem
- * @version 2013-12-05
  */
 public class User extends DataEntity<User> {
 

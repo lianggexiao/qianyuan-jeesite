@@ -33,8 +33,6 @@ import com.google.common.collect.Maps;
 /**
  * 登录Controller
  *
- * @author ThinkGem
- * @version 2013-5-31
  */
 @Controller
 public class LoginController extends BaseController {

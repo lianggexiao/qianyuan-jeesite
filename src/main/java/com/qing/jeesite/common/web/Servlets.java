@@ -31,8 +31,6 @@ import com.google.common.net.HttpHeaders;
 /**
  * Http与Servlet工具类.
  *
- * @author calvin/thinkgem
- * @version 2014-8-19
  */
 public class Servlets {
 

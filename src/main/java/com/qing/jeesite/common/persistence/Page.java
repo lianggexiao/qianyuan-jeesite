@@ -18,9 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 分页类
- * @author ThinkGem
- * @version 2013-7-2
- * @param <T>
  */
 public class Page<T> {
 	

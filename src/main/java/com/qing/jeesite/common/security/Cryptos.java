@@ -23,7 +23,6 @@ import com.qing.jeesite.common.utils.Exceptions;
  * 
  * 支持Hex与Base64两种编码方式.
  * 
- * @author calvin
  */
 public class Cryptos {
 

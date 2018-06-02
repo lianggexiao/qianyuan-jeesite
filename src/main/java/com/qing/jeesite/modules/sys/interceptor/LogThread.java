@@ -24,11 +24,6 @@ import com.qing.jeesite.modules.sys.entity.Menu;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-/**
- * Created by wolfking(赵伟伟)
- * Created on 2017/1/15 20:55
- * Mail zww199009@163.com
- */
 @Component
 public class LogThread extends Thread {
 

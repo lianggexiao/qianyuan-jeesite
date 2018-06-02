@@ -13,8 +13,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * 数据Entity类
- * @author ThinkGem
- * @version 2014-05-16
  */
 public abstract class TreeEntity<T> extends DataEntity<T> {
 

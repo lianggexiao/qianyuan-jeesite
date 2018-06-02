@@ -29,8 +29,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * 自定义WEB会话管理类
- * @author ThinkGem
- * @version 2014-7-20
  */
 @Component
 public class SessionManager extends DefaultWebSessionManager {

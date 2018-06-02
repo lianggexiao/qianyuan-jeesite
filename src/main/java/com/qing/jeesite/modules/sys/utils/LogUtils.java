@@ -16,8 +16,6 @@ import com.qing.jeesite.modules.sys.interceptor.LogThread;
 /**
  * 字典工具类
  *
- * @author ThinkGem
- * @version 2014-11-7
  */
 public class LogUtils {
 

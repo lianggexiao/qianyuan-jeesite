@@ -31,8 +31,6 @@ import com.qing.jeesite.modules.sys.utils.UserUtils;
 /**
  * CKFinder配置
  *
- * @author ThinkGem
- * @version 2014-06-25
  */
 public class CKFinderConfig extends Configuration {
 

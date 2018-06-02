@@ -7,7 +7,6 @@ package com.qing.jeesite.common.persistence.dialect;
 /**
  * DB2的分页数据库方言实现
  *
- * @author poplar.yfyang
  * @version 1.0 2010-10-10 下午12:31
  * @since JDK 1.5
  */

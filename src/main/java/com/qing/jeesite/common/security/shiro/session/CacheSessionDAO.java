@@ -30,8 +30,6 @@ import com.google.common.collect.Sets;
 
 /**
  * 系统安全认证实现类
- * @author ThinkGem
- * @version 2014-7-24
  */
 @Component("sessionDAO")
 public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements SessionDAO,InitializingBean{

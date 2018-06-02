@@ -14,9 +14,6 @@ import com.qing.jeesite.common.persistence.Page;
 
 /**
  * Service基类
- *
- * @author ThinkGem
- * @version 2014-05-16
  */
 @Transactional(readOnly = true)
 public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>> extends BaseService {

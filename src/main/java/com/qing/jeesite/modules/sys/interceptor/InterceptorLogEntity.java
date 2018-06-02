@@ -2,11 +2,6 @@ package com.qing.jeesite.modules.sys.interceptor;
 
 import com.qing.jeesite.modules.sys.entity.Log;
 
-/**
- * Created by wolfking(赵伟伟)
- * Created on 2017/1/15 20:51
- * Mail zww199009@163.com
- */
 public class InterceptorLogEntity {
     private Log log;
     private Object handler;

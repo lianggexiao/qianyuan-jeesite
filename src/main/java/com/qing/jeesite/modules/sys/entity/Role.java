@@ -14,8 +14,6 @@ import com.google.common.collect.Lists;
 
 /**
  * 角色Entity
- * @author ThinkGem
- * @version 2013-12-05
  */
 public class Role extends DataEntity<Role> {
 	

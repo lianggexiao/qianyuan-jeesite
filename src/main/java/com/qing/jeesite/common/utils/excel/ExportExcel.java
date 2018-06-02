@@ -42,8 +42,6 @@ import com.google.common.collect.Lists;
 
 /**
  * 导出Excel文件（导出“XLSX”格式，支持大数据量导出   @see org.apache.poi.ss.SpreadsheetVersion）
- * @author ThinkGem
- * @version 2013-04-21
  */
 public class ExportExcel {
 	

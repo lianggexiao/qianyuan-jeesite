@@ -11,9 +11,6 @@ import java.util.List;
 
 /**
  * 菜单DAO接口
- *
- * @author ThinkGem
- * @version 2014-05-16
  */
 @Mapper
 public interface MenuDao extends CrudDao<Menu> {

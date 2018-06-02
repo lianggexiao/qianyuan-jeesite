@@ -30,9 +30,6 @@ import java.util.Map;
 /**
  * shiro的控制类
  * 下面方法的顺序不能乱
- * Created by zhao.weiwei
- * create on 2017/1/11 10:59
- * the email is zhao.weiwei@jyall.com.
  */
 @Component
 public class ShiroConfig {

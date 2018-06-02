@@ -40,8 +40,6 @@ import com.google.common.collect.Maps;
 
 /**
  * 用户Controller
- * @author ThinkGem
- * @version 2013-8-29
  */
 @Controller
 @RequestMapping(value = "${adminPath}/sys/user")

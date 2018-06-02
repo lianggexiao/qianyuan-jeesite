@@ -23,8 +23,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * 生成随机验证码
- * @author ThinkGem
- * @version 2014-7-27
  */
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/servlet/validateCodeServlet")
