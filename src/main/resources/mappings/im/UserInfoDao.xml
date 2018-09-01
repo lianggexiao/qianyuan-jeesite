@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qing.jeesite.modules.im.dao.UserInfoDao">
+
+	<sql id="userInfoColumns">
+       t.id,
+       t.user_name as userName,
+       t.wang_id as wangId,
+       t.jd_id as jdId,
+       t.wechat_id as wechatId,
+       t.origin_wechat_id as originWechatId,
+       t.mobile,
+       t.sex,
+       t.birthday,
+       t.relation_wechat_id as relationWechatId,
+       t.create_date as createDate,
+	   t.del_flag as delFlag
+	</sql>
+
+	<select id="get" resultType="com.qing.jeesite.modules.im.entity.UserInfo">
+		SELECT
+		<include refid="userInfoColumns"/>
+		FROM t_user_info t
+		WHERE t.id = #{id}
+	</select>
+
+	<!-- 分页查询用户信息 -->
+	<select id="findList" resultType="com.qing.jeesite.modules.im.entity.UserInfo">
+		SELECT
+		<include refid="userInfoColumns"/>
+		FROM t_user_info t
+		WHERE t.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="userName != null and userName != ''">
+			AND t.user_name like concat(concat('%',#{userName}),'%')
+		</if>
+		<if test="wechatId != null and wechatId != ''">
+			AND (t.wechat_id like concat(concat('%',#{wechatId}),'%') OR t.origin_wechat_id like concat(concat('%',#{wechatId}),'%'))
+		</if>
+		<if test="wangId != null and wangId != ''">
+			AND (t.wang_id like concat(concat('%',#{wangId}),'%') OR t.jd_id like concat(concat('%',#{wangId}),'%'))
+		</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY t.create_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 分页查询用户信息 -->
+	<select id="getUserInfoByWJ" resultType="com.qing.jeesite.modules.im.entity.UserInfo">
+		SELECT
+		<include refid="userInfoColumns"/>
+		FROM t_user_info t
+		WHERE t.del_flag = #{DEL_FLAG_NORMAL}
+		<choose>
+			<when test="jdId != null and jdId != '' and wangId != null and wangId != ''">
+				AND (t.jd_id = #{jdId} OR t.wang_id = #{wangId})
+			</when>
+			<otherwise>
+				<if test="jdId != null and jdId != ''">
+					AND t.jd_id = #{jdId}
+				</if>
+				<if test="wangId != null and wangId != ''">
+					AND t.wang_id = #{wangId}
+				</if>
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO t_user_info(
+		id,
+		user_name,
+        wang_id,
+        jd_id,
+        wechat_id,
+        origin_wechat_id,
+        mobile,
+        sex,
+        birthday,
+        relation_wechat_id,
+	    del_flag
+		) VALUES (
+		#{id},
+		#{userName},
+		#{wangId},
+		#{jdId},
+		#{wechatId},
+		#{originWechatId},
+		#{mobile},
+		#{sex},
+		#{birthday},
+		#{relationWechatId},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE t_user_info SET
+		wang_id = #{wangId},
+		jd_id = #{jdId},
+		user_name = #{userName},
+		origin_wechat_id = #{originWechatId},
+		mobile = #{mobile},
+		sex = #{sex},
+		<if test="delFlag != null and delFlag != ''">
+			del_flag = #{delFlag},
+		</if>
+		birthday = #{birthday}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE t_user_info SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+	<select id="getSeqId" resultType="int">
+		select nextval("user_info_sequence");
+	</select>
+	
+</mapper>

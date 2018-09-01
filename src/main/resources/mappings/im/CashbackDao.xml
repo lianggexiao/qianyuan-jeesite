@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qing.jeesite.modules.im.dao.CashbackDao">
+
+	<sql id="cashbackColumns">
+       t.id,
+       t.order_id as orderId,
+       t.shop,
+       t.shop_time as shopTime,
+       t.goods_id as goodsId,
+       t.amount,
+       t.address,
+       t.user_id as userId,
+       t.remarks,
+       t.create_date as createDate,
+       t.del_flag as delFlag
+	</sql>
+
+	<select id="get" resultType="com.qing.jeesite.modules.im.entity.Cashback">
+		SELECT
+		<include refid="cashbackColumns"/> ,tui.wechat_id as wechatId,tui.user_name as userName,tg.goods_name as goodsName
+		FROM t_cashback t
+		LEFT JOIN t_user_info tui ON t.user_id = tui.id
+		LEFT JOIN t_goods tg ON t.goods_id = tg.id
+		WHERE t.id = #{id}
+	</select>
+
+	<select id="findList" resultType="com.qing.jeesite.modules.im.entity.Cashback">
+		SELECT
+		<include refid="cashbackColumns"/>,tui.wechat_id as wechatId,tg.goods_name as goodsName
+		FROM t_cashback t
+		LEFT JOIN t_user_info tui ON t.user_id = tui.id
+		LEFT JOIN t_goods tg ON t.goods_id = tg.id
+		WHERE t.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="userId != null and userId != ''">
+			AND t.user_id = #{userId}
+		</if>
+		<if test="orderId != null and orderId != ''">
+			AND t.order_id like concat(concat('%',#{orderId}),'%')
+		</if>
+		<if test="wechatId != null and wechatId != ''">
+			AND tui.wechat_id like concat(concat('%',#{wechatId}),'%') OR tui.origin_wechat_id like concat(concat('%',#{wechatId}),'%'))
+		</if>
+		<if test="wangId != null and wangId != ''">
+			AND (tui.wang_id like concat(concat('%',#{wangId}),'%') OR tui.jd_id like concat(concat('%',#{wangId}),'%'))
+		</if>
+		<if test="shop != null and shop != ''">
+			AND t.shop = #{shop}
+		</if>
+		<if test="goodsId != null and goodsId != ''">
+			AND t.goods_id = #{goodsId}
+		</if>
+		<if test="startShopTime != null and startShopTime != ''">
+			AND date_format(t.shop_time,'%Y-%m-%d') >= #{startShopTime}
+		</if>
+		<if test="endShopTime != null and endShopTime != ''">
+			AND #{endShopTime} >= date_format(t.shop_time,'%Y-%m-%d')
+		</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY t.create_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO t_cashback(
+		id,
+        order_id,
+        shop,
+        shop_time,
+        goods_id,
+        amount,
+        address,
+        user_id,
+        remarks,
+        del_flag
+		) VALUES (
+		#{id},
+		#{orderId},
+		#{shop},
+		#{shopTime},
+		#{goodsId},
+		#{amount},
+		#{address},
+		#{userId},
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE t_cashback SET
+		order_id = #{orderId},
+		user_id = #{userId},
+		goods_id = #{goodsId},
+		amount = #{amount},
+		address = #{address},
+		shop = #{shop},
+		shop_time = #{shopTime},
+		<if test="delFlag != null and delFlag != ''">
+			del_flag = #{delFlag},
+		</if>
+		remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE t_cashback SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qing.jeesite.modules.im.dao.BrushOrderDao">
+
+	<sql id="brushOrderColumns">
+       t.id,
+       t.goods_id as goodsId,
+       t.brush_time as brushTime,
+       t.order_id as orderId,
+       t.shop,
+       t.address,
+       t.gift,
+       t.user_id as userId,
+       t.positivity,
+       t.is_friend as isFriend,
+       t.create_date as createDate,
+       t.remarks,
+       t.del_flag as delFlag
+	</sql>
+
+	<select id="get" resultType="com.qing.jeesite.modules.im.entity.BrushOrder">
+		SELECT
+		<include refid="brushOrderColumns"/> ,tui.wechat_id as wechatId,tui.user_name as userName,tg.goods_name as goodsName
+		FROM t_brush_order t
+		LEFT JOIN t_user_info tui ON t.user_id = tui.id
+		LEFT JOIN t_goods tg ON t.goods_id = tg.id
+		WHERE t.id = #{id}
+	</select>
+
+	<select id="findList" resultType="com.qing.jeesite.modules.im.entity.BrushOrder">
+		SELECT
+		<include refid="brushOrderColumns"/> ,tui.wechat_id as wechatId,tg.goods_name as goodsName
+		FROM t_brush_order t
+		LEFT JOIN t_user_info tui ON t.user_id = tui.id
+		LEFT JOIN t_goods tg ON t.goods_id = tg.id
+		WHERE t.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="userId != null and userId != ''">
+			AND t.user_id = #{userId}
+		</if>
+		<if test="orderId != null and orderId != ''">
+			AND t.order_id like concat(concat('%',#{orderId}),'%')
+		</if>
+		<if test="wechatId != null and wechatId != ''">
+			AND tui.wechat_id like concat(concat('%',#{wechatId}),'%') OR tui.origin_wechat_id like concat(concat('%',#{wechatId}),'%'))
+		</if>
+		<if test="wangId != null and wangId != ''">
+			AND (tui.wang_id like concat(concat('%',#{wangId}),'%') OR tui.jd_id like concat(concat('%',#{wangId}),'%'))
+		</if>
+		<if test="shop != null and shop != ''">
+			AND t.shop = #{shop}
+		</if>
+		<if test="isFriend != null and isFriend != ''">
+			AND t.is_friend = #{isFriend}
+		</if>
+		<if test="goodsId != null and goodsId != ''">
+			AND t.goods_id = #{goodsId}
+		</if>
+		<if test="startBrushTime != null and startBrushTime != ''">
+			AND date_format(t.brush_time,'%Y-%m-%d') >= #{startBrushTime}
+		</if>
+		<if test="endBrushTime != null and endBrushTime != ''">
+			AND #{endBrushTime} >= date_format(t.brush_time,'%Y-%m-%d')
+		</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY t.create_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO t_brush_order(
+		id,
+        goods_id,
+        brush_time,
+        order_id,
+        shop,
+        address,
+        gift,
+        user_id,
+        positivity,
+        is_friend,
+        remarks,
+        del_flag
+		) VALUES (
+		#{id},
+		#{goodsId},
+		#{brushTime},
+		#{orderId},
+		#{shop},
+		#{address},
+		#{gift},
+		#{userId},
+		#{positivity},
+		#{isFriend},
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE t_brush_order SET
+		shop = #{shop},
+		goods_id = #{goodsId},
+		brush_time = #{brushTime},
+		order_id = #{orderId},
+		gift = #{gift},
+		positivity = #{positivity},
+		<if test="isFriend != null and isFriend != ''">
+			is_friend = #{isFriend},
+		</if>
+		<if test="delFlag != null and delFlag != ''">
+			del_flag = #{delFlag},
+		</if>
+		<if test="remarks != null and remarks != ''">
+			remarks = #{remarks},
+		</if>
+		address = #{address}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE t_brush_order SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
