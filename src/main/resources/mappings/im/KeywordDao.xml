@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qing.jeesite.modules.im.dao.KeywordDao">
+
+	<sql id="keywordColumns">
+       t.id,
+       t.key_date as keyDate,
+       t.appear_number as appearNumber,
+       t.pay_number as payNumber,
+       t.keyword,
+       t.goods_name as goodsName,
+       t.shop_name as shopName,
+       t.create_date as createDate
+	</sql>
+
+	<select id="get" resultType="com.qing.jeesite.modules.im.entity.Keyword">
+		SELECT
+		<include refid="keywordColumns"/>
+		FROM t_keyword t
+		WHERE t.id = #{id}
+	</select>
+
+	<!-- 分页查询关键词统计信息 -->
+	<select id="findList" resultType="com.qing.jeesite.modules.im.entity.Keyword">
+		SELECT
+		<include refid="keywordColumns"/>
+		FROM t_keyword t
+		WHERE 1 = 1
+		<if test="keyword != null and keyword != ''">
+			AND t.keyword like concat(concat('%',#{keyword}),'%')
+		</if>
+		<if test="startKeyTime != null and startKeyTime != ''">
+			AND date_format(t.key_date,'%Y-%m-%d') >= #{startKeyTime}
+		</if>
+		<if test="endKeyTime != null and endKeyTime != ''">
+			AND #{endKeyTime} >= date_format(t.key_date,'%Y-%m-%d')
+		</if>
+		<if test="goodsName != null and goodsName != ''">
+			AND t.goods_name = #{goodsName}
+		</if>
+		<if test="shopName != null and shopName != ''">
+			AND t.shop_name = #{shopName}
+		</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY t.create_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 分页查询关键词统计信息 -->
+	<select id="findKeywordList" resultType="com.qing.jeesite.modules.im.entity.Keyword">
+		SELECT
+		SUM(t.appear_number) as appearNumber,
+		SUM(t.pay_number) as payNumber,
+		t.keyword,
+		t.shop_name,
+		t.goods_name,
+		t.key_date as keyDate
+		FROM t_keyword t
+		GROUP BY t.keyword
+		HAVING 1=1
+		<if test="keyword != null and keyword != ''">
+			AND t.keyword like concat(concat('%',#{keyword}),'%')
+		</if>
+		<if test="startKeyTime != null and startKeyTime != ''">
+			AND date_format(t.key_date,'%Y-%m-%d') >= #{startKeyTime}
+		</if>
+		<if test="endKeyTime != null and endKeyTime != ''">
+			AND #{endKeyTime} >= date_format(t.key_date,'%Y-%m-%d')
+		</if>
+		<if test="goodsName != null and goodsName != ''">
+			AND t.goods_name = #{goodsName}
+		</if>
+		<if test="shopName != null and shopName != ''">
+			AND t.shop_name = #{shopName}
+		</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY t.key_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<insert id="insert">
+		INSERT INTO t_keyword(
+		id,
+        key_date,
+        appear_number,
+        pay_number,
+        goods_name,
+        shop_name,
+        keyword
+		) VALUES (
+		#{id},
+		#{keyDate},
+		#{appearNumber},
+		#{payNumber},
+		#{goodsName},
+		#{shopName},
+		#{keyword}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE t_keyword SET
+		<if test="keyword != null and keyword != ''">
+			keyword = #{keyword},
+		</if>
+		<if test="keyDate != null">
+			key_date = #{keyDate},
+		</if>
+		<if test="appearNumber != null">
+			appear_number = #{appearNumber},
+		</if>
+		<if test="payNumber != null">
+			pay_number = #{payNumber},
+		</if>
+		<if test="shopName != null">
+			shop_name = #{shopName},
+		</if>
+		<if test="goodsName != null">
+			goods_name = #{goodsName},
+		</if>
+		id = #{id}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM t_keyword
+		WHERE id = #{id}
+	</delete>
+
+	<insert id="insertOrUpdateByBatch" parameterType="java.util.List">
+		insert into t_keyword (id,
+		key_date,
+		appear_number,
+		pay_number,
+		shop_name,
+		goods_name,
+		keyword)
+		values
+		<foreach collection ="list" item="keyword" separator="," >
+			(#{keyword.id},
+			#{keyword.keyDate},
+			#{keyword.appearNumber},
+			#{keyword.payNumber},
+			#{keyword.shopName},
+			#{keyword.goodsName},
+			#{keyword.keyword})
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+		key_date = VALUES(key_date),keyword = VALUES(keyword),appear_number = VALUES(appear_number),pay_number = VALUES(pay_number)
+		,shop_name = VALUES(shop_name),goods_name = VALUES(goods_name)
+	</insert>
+
+
+    <select id="getKeywordList" resultType="com.qing.jeesite.modules.im.entity.Keyword">
+        SELECT DISTINCT(t.keyword) as keyword FROM t_keyword t
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND t.keyword = #{keyword}
+        </if>
+        <if test="startKeyTime != null and startKeyTime != ''">
+            AND date_format(t.key_date,'%Y-%m-%d') >= #{startKeyTime}
+        </if>
+        <if test="endKeyTime != null and endKeyTime != ''">
+            AND #{endKeyTime} >= date_format(t.key_date,'%Y-%m-%d')
+        </if>
+		<if test="goodsName != null and goodsName != ''">
+			AND t.goods_name = #{goodsName}
+		</if>
+		<if test="shopName != null and shopName != ''">
+			AND t.shop_name = #{shopName}
+		</if>
+         ORDER BY
+	t.appear_number DESC LIMIT 0,8
+    </select>
+
+    <select id="getListByKeyword" resultType="com.qing.jeesite.modules.im.entity.Keyword">
+        SELECT
+        <include refid="keywordColumns"/>
+        FROM t_keyword t
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND t.keyword = #{keyword}
+        </if>
+        <if test="startKeyTime != null and startKeyTime != ''">
+            AND date_format(t.key_date,'%Y-%m-%d') >= #{startKeyTime}
+        </if>
+        <if test="endKeyTime != null and endKeyTime != ''">
+            AND #{endKeyTime} >= date_format(t.key_date,'%Y-%m-%d')
+        </if>
+		<if test="goodsName != null and goodsName != ''">
+			AND t.goods_name = #{goodsName}
+		</if>
+		<if test="shopName != null and shopName != ''">
+			AND t.shop_name = #{shopName}
+		</if>
+    </select>
+
+</mapper>
