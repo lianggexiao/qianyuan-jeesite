@@ -203,6 +203,19 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	}
 
 	/**
+	 * 获取当前日期 + day
+	 * @return
+	 */
+	public static String getNowDay(int day,Date dd){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		if(dd == null){
+			dd = new Date();
+		}
+		Date date = org.apache.commons.lang3.time.DateUtils.addDays(dd , day);
+		return format.format(date);
+	}
+
+	/**
 	 * @param args
 	 * @throws ParseException
 	 */

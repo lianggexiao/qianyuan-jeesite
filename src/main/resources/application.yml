@@ -23,7 +23,7 @@ spring:
   datasource-sys:
     driverClassName: com.mysql.jdbc.Driver
   #  type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://192.168.199.148:3306/jeesite?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/jeesite?useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456
     hikari:
@@ -37,7 +37,7 @@ spring:
   datasource-im:
       driverClassName: com.mysql.jdbc.Driver
   #    type: com.zaxxer.hikari.HikariDataSource
-      url: jdbc:mysql://192.168.199.148:3306/jeesite?useUnicode=true&characterEncoding=utf-8
+      url: jdbc:mysql://127.0.0.1:3306/jeesite?useUnicode=true&characterEncoding=utf-8
       username: root
       password: 123456
       hikari:
