@@ -347,22 +347,5 @@ public class ImportExcel {
 		return dataList;
 	}
 
-	/**
-	 * 导入测试
-	 */
-	public static void main(String[] args) throws Throwable {
-
-		ImportExcel ei = new ImportExcel("D:\\SVN潜渊科技\\系统\\商品关键词效果分析模板.xls", 1);
-
-		for (int i = ei.getDataRowNum(); i < ei.getLastDataRowNum(); i++) {
-			Row row = ei.getRow(i);
-			for (int j = 0; j < ei.getLastCellNum(); j++) {
-				Object val = ei.getCellValue(row, j);
-				System.out.print(val+", ");
-			}
-			System.out.print("\n");
-		}
-
-	}
 
 }

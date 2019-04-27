@@ -95,6 +95,7 @@
             <label>关键字：</label>
             <form:input path="keyword" htmlEscape="false" maxlength="50" class="input-medium"/>
         </li>
+        <li class="clearfix"></li>
         <li>
             <label>统计日期:</label>
             <form:input path="startKeyTime" name="createDate" id="createDate" type="text" readonly="readonly" maxlength="20"
